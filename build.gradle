@@ -56,19 +56,19 @@ if (project.hasProperty('ossrhUsername')) {
                 pom.project {
                     name 'ASCII Table Helper'
                     packaging 'jar'
-                    description 'Helper library to render ASCII tables'
-                    url 'https://jeeshell.github.io/je2sh/'
+                    description 'ASCII Table Helper'
+                    url 'https://jeeshell.github.io/asciitable/'
 
                     scm {
-                        connection 'scm:https://github.com/jeeshell/je2sh.git'
-                        developerConnection 'scm:https://github.com/jeeshell/je2sh.git'
-                        url 'git@github.com:jeeshell/je2sh.git'
+                        connection 'scm:https://github.com/jeeshell/asciitable.git'
+                        developerConnection 'scm:https://github.com/jeeshell/asciitable.git'
+                        url 'git@github.com:jeeshell/asciitable.git'
                     }
 
                     licenses {
                         license {
                             name 'MIT License'
-                            url 'https://github.com/jeeshell/je2sh/blob/master/LICENSE.md'
+                            url 'https://github.com/jeeshell/asciitable/blob/master/LICENSE.md'
                         }
                     }
 
