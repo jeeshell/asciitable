@@ -1,0 +1,87 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.16'
+
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.1'
+    compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.16'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+if (project.hasProperty('ossrhUsername')) {
+    signing {
+        sign configurations.archives
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                pom.project {
+                    name 'ASCII Table Helper'
+                    packaging 'jar'
+                    description 'Helper library to render ASCII tables'
+                    url 'https://jeeshell.github.io/je2sh/'
+
+                    scm {
+                        connection 'scm:https://github.com/jeeshell/je2sh.git'
+                        developerConnection 'scm:https://github.com/jeeshell/je2sh.git'
+                        url 'git@github.com:jeeshell/je2sh.git'
+                    }
+
+                    licenses {
+                        license {
+                            name 'MIT License'
+                            url 'https://github.com/jeeshell/je2sh/blob/master/LICENSE.md'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'hartimer'
+                            name 'Joao Peixoto'
+                            email 'joao.hartimer@gmail.com'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
