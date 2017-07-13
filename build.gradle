@@ -1,8 +1,19 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.researchgate:gradle-release:2.4.0'
+
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
+apply plugin: 'net.researchgate.release'
 
 sourceCompatibility = 1.8
 
