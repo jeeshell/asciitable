@@ -27,4 +27,10 @@ public class JPadding extends JSurroundingStyle {
     public JPadding(int left, int top, int right, int bottom, Character character) {
         super(left, top, right, bottom, character, character, character, character);
     }
+
+    public JPadding(int left, char leftChar, int top, char topChar, int right, char rightChar,
+                    int bottom, char bottomChar)
+    {
+        super(left, top, right, bottom, leftChar, topChar, rightChar, bottomChar);
+    }
 }
